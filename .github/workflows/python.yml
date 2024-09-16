@@ -45,10 +45,9 @@ jobs:
 
     - name: Build pages
       run: |
-        mkdir _site
-        cp -r examples/ _site/examples/
-        cp CONTRIBUTING.md _site/
-        cp LICENSE _site/
+        cp -r examples/ docs/examples/
+        cp CONTRIBUTING.md docs/
+        cp LICENSE docs/
         tree
         poetry run mkdocs build -s -d _site
 
