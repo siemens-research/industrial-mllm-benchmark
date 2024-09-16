@@ -1,13 +1,11 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python
+name: Python main branch
 
 on:
   push:
-    branches: [ "main", "setup-github-actions"]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "main"]
 
 permissions:
   contents: read
@@ -20,8 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install poetry
-      run: pipx install poetry
+    - run: pipx install poetry
 
     - uses: actions/setup-python@v5
       with:
@@ -30,15 +27,11 @@ jobs:
 
     - run: poetry install
 
-    - name: Check pre-commit
-      run: poetry run pre-commit run -a
+    - run: poetry run pre-commit run -a
 
-    - name: Build Wheel
-      run: |
-        poetry build
+    - run: poetry build
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
+    - uses: actions/configure-pages@v5
       with:
         enablement: true
 
@@ -51,8 +44,7 @@ jobs:
 
         poetry run mkdocs build -s -d _site
 
-    - name: Upload Pages Folder
-      uses: actions/upload-pages-artifact@v3
+    - uses: actions/upload-pages-artifact@v3
 
   deploy:
     needs: build
