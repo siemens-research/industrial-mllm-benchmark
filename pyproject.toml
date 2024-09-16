@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 [tool.poetry]
-name = "benchmark"
+name = "industrial_mllm_benchmark"
 version = "0.1.0"
 description = ""
 authors = ["Dieter Bogdoll <dieter.bogdoll@siemens.com>"]
