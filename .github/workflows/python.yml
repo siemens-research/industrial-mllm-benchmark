@@ -44,7 +44,10 @@ jobs:
         enablement: true
 
     - name: Build pages
-      run: poetry run mkdocs build -s -d _site
+      run: |
+        cp -r examples/ _site/
+        tree
+        poetry run mkdocs build -s -d _site
 
     - name: Upload Pages Folder
       uses: actions/upload-pages-artifact@v3
