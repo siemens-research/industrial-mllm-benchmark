@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+templates/
+examples/
+*.pdf
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE

@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+[tool.poetry]
+name = "benchmark"
+version = "0.1.0"
+description = ""
+authors = ["Dieter Bogdoll <dieter.bogdoll@siemens.com>"]
+# readme = "README.md"
+packages = [
+    { include = "industrial_mllm_benchmark" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "^6.0.1"
+click = "^8.1.7"
+requests = "^2.32.3"
+jinja2 = "^3.1.4"
+python-dotenv = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "3.5.0"
+pre-commit-hooks = "4.5.0"
+ruff = "0.3.4"
+commitizen = "^3.29.0"
+types-requests = "^2.32.0.20240712"
+reuse = "^4.0.3"
+mkdocs = "^1.6.1"
+pymdown-extensions = "^10.9"
+mkdocs-material = "^9.5.34"
+
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_scheme = "pep440"
+version_provider = "poetry"
+update_changelog_on_bump = true
+major_version_zero = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+industrial-mllm-benchmark = "industrial_mllm_benchmark.__main__:cli"

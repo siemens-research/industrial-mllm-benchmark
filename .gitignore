@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+.venv/
+.env
+.vscode/
+__pycache__/
+_site/
+dist/
+errors/

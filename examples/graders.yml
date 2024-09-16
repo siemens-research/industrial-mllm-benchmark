@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+graders:
+  contains:
+    description: "The answer contains the expected answer"
+    implementation:
+      language: python
+      module: industrial_mllm_benchmark
+      function: contains
+
+  expected_answer:
+    description: "This judge checks if the answer is the expected one"
+    implementation:
+      language: python
+      module: industrial_mllm_benchmark
+      function: expected_answer
+      args:
+        grader_model: model1
+        system_prompt: >
+          Judge the similarity between the two sentences without considering formatting, spelling,
+          or how the information is presented. Rate the similarity on a scale from 0 to 1.0,
+          where 0 means the sentences do not contain the same information, 0.5 means they contain
+          overlapping information, and 1.0 means the sentences contain the same information.
+          Output only the score.
+        user_prompt: >
+          Sentence one: {actual_answer}
+          Sentence two: {expected_answer}

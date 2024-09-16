@@ -1,0 +1,136 @@
+{#
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+#}
+
+<html>
+
+<head>
+    <title>Report</title>
+    <style>
+        table {
+
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 2rem;
+        }
+
+        h2,
+        h3 {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 0.2rem;
+            text-align: left;
+        }
+
+        img {
+            max-width: 500px;
+            max-height: 300px;
+
+        }
+
+        .pass {
+            background-color: #00FF00;
+        }
+
+        .fail {
+            background-color: #FF0000;
+        }
+
+        .error {
+            background-color: #FFA500;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <h1>Report</h1>
+
+    {% for taskset_name, taskset in result.config.tasksets.items() %}
+    <h2>Taskset: {{ taskset_name }}</h2>
+
+
+    {% for task in taskset.tasks %}
+    <h3>{{ task.name }}</h3>
+
+    <table>
+        {% for prompt in task.user_prompt %}
+
+        <tr>
+            {% if prompt[0] == 'image' %}
+            <th>
+                <a href="{{ prompt[1] }}">
+                    <img src="{{ prompt[1] }}" alt="prompt image">
+                </a>
+            </th>
+            {% endif %}
+            {% if prompt[0]=='text' %}
+            <th> {{ prompt[1]}}</th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% set lookup = {-1: "error", 0: 'failed', 1: "passed"} %}
+    {% set eval_task = result.evaluation[taskset_name][task.name] %}
+
+    {% for model_name, model in eval_task.models.items() %}
+
+
+
+    <table>
+        <tr>
+            <th colspan="2"><a href="#{{model.name}}">{{ model.name }}</a></th>
+        </tr>
+        <tr>
+            <td><b>Answer</b></td>
+            <td>{{ model.answer }}</td>
+        </tr>
+        <tr>
+            <td><b>Duration</b></td>
+            <td>{{ model.duration }} seconds</td>
+        </tr>
+        <tr>
+            <td><b>Result</b></td>
+            <td class="{{model.grader_result.status}}">{{model.grader_result.status}}
+            </td>
+        </tr>
+    </table>
+
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+
+
+    <h2>Models</h2>
+
+    {% for model_name, model in result.config.models.items() %}
+    <table id="{{ model_name }}">
+        <tr>
+            <th colspan="2">{{ model_name }}</th>
+        </tr>
+        <tr>
+            <td><b>endpoint</b></td>
+            <td>{{ model.endpoint }}</td>
+        </tr>
+        <tr>
+            <td><b>parameters</b></td>
+            <td>{{ model.parameters }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+
+</html>

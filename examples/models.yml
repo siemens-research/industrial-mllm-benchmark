@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+models:
+  model1:
+    implementation:
+      language: python
+      module: industrial_mllm_benchmark
+      class: OpenAIModel
+      function: parse_instance
+    endpoint: !ENV ${MODEL1_ENDPOINT}
+    access_token: !ENV ${MODEL1_ACCESS_TOKEN}
+    model: gpt-4o
+    version: 2023-07-01-preview
+    parameters:
+      temperature: 0.0
+      top_p: 0.95
+      max_tokens: 2000
+
+  model2:
+    implementation:
+      language: python
+      module: industrial_mllm_benchmark
+      class: OpenAIModel
+      function: parse_instance
+    endpoint: !ENV ${MODEL2_ENDPOINT}
+    access_token: !ENV ${MODEL2_ACCESS_TOKEN}
+    model: gpt-4o
+    version: 2023-07-01-preview
+    parameters:
+      temperature: 0.0
+      top_p: 0.95
+      max_tokens: 2000

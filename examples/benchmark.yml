@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+includes:
+  - ./models.yml
+  - ./graders.yml
+
+# System prompts can be specified here, or overwritten in the task specific one.
+
+
+
+tasksets:
+
+  - name: Datasheet
+    models: [model1, model2]
+    system_prompts:
+      model1: >
+        Your task is to extract information from datasheets.
+        Only state the information requested in the prompt.
+        Do not include any additional comment.
+      model2: >
+        Your task is to extract information from datasheets.
+        Only state the information requested in the prompt.
+        Do not include any additional comment.
+
+    tasks:
+      - name: Basic Component Connections
+
+        user_prompt:
+          - image: images/datasheet.jpg
+          - text: With which components is FD1771 connected? List only the component names without further explanation.
+
+        graders:
+          threshold: 0.8
+          use:
+            - name: expected_answer
+              weight: 1
+              answer: "Computer Interface, Floppy Disk Drive"
+
+        metadata:
+          task_type: information_extraction
+          complexity: {input_amount: 2, domain_knowledge: 1, indirection: 1, multiplicity: 1}
+          relevant_for:
+            - electronics production
+            - electronics product design
+
+      - name: Pin Connections
+
+        user_prompt:
+          - image: images/datasheet.jpg
+          - text: How is FD1771 clocked? Name the pin, the clock speed and to which other component FD1771 is connected via the pin.
+
+        graders:
+          threshold: 0.8
+          use:
+            - name: expected_answer
+              weight: 1
+              answer: "FD1771 is clocked via the CLK pin with 2 MHz. The CLK pin connects to the component Computer Interface"
+            - name: contains
+              weight: 0.1
+              answer: FD1771
+
+        metadata:
+          task_type: information_extraction
+          complexity: {input_amount: 2, domain_knowledge: 1, indirection: 1, multiplicity: 1}
+          relevant_for:
+            - electronics production
+            - electronics product design
