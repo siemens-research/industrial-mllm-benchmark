@@ -29,7 +29,10 @@ jobs:
         cache: 'poetry'
 
     - run: poetry install
+
     - run: poetry run pre-commit run -a
+
+    - run: poetry build
 
     - uses: actions/configure-pages@v5
       with:
