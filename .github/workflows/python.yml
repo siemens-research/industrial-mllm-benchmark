@@ -36,7 +36,6 @@ jobs:
     - name: Build Wheel
       run: |
         poetry build
-        mv dist/ docs/dist/
 
     - name: Setup Pages
       uses: actions/configure-pages@v5
@@ -45,10 +44,11 @@ jobs:
 
     - name: Build pages
       run: |
+        mv dist/ docs/dist/
         cp -r examples/ docs/examples/
         cp CONTRIBUTING.md docs/
         cp LICENSE docs/
-        tree
+
         poetry run mkdocs build -s -d _site
 
     - name: Upload Pages Folder

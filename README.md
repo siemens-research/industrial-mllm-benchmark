@@ -10,4 +10,4 @@
 
 ## Further details
 
-Please refer to this site for the project documentation: https://siemens-research.github.io/industrial_mllm_benchmark
+Please refer to this site for the project documentation: https://siemens-research.github.io/industrial-mllm-benchmark/
