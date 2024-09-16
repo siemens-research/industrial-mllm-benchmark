@@ -45,7 +45,8 @@ jobs:
 
     - name: Build pages
       run: |
-        cp -r examples/ _site/
+        mkdir _site
+        cp -r examples/ _site/examples/
         tree
         poetry run mkdocs build -s -d _site
 
