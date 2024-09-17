@@ -3,10 +3,10 @@
 
 [tool.poetry]
 name = "industrial_mllm_benchmark"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "Code to benchmark and evaluate MLLM on industrial data (data itself are not part of the publication)."
 authors = ["Dieter Bogdoll <dieter.bogdoll@siemens.com>"]
-# readme = "README.md"
+readme = "README.md"
 packages = [
     { include = "industrial_mllm_benchmark" }
 ]
