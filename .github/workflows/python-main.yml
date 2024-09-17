@@ -36,7 +36,9 @@ jobs:
         run: poetry install
 
       - name: Run checks
-        run: poetry run pre-commit run -a
+        run: |
+          poetry run pre-commit run -a
+          poetry build
 
       - name: Configure GH pages
         uses: actions/configure-pages@v5

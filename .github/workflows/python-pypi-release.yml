@@ -19,7 +19,7 @@ jobs:
 
     environment:
       name: pypi.org
-      url: https://test.pypi.org/project/industrial-mllm-benchmark/
+      url: https://pypi.org/project/industrial-mllm-benchmark/
 
     steps:
       - name: Checkout source code
@@ -46,5 +46,5 @@ jobs:
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://test.pypi.org/legacy/
+          repository-url: https://pypi.org/legacy/
           packages-dir: dist/
