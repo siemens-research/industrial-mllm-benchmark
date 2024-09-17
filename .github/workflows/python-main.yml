@@ -4,7 +4,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python main branch
+name: Check and Deploy GH pages
 
 on:
   push:
@@ -19,34 +19,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
 
-    - run: pipx install poetry
+      - name: Checkout source code
+        uses: actions/checkout@v4
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-        cache: 'poetry'
+      - name: Install Poetry
+        run: pipx install poetry
 
-    - run: poetry install
+      - name: Setup python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'poetry'
 
-    - run: poetry run pre-commit run -a
+      - name: Install project dependencies
+        run: poetry install
 
-    - run: poetry build
+      - name: Run checks
+        run: poetry run pre-commit run -a
 
-    - uses: actions/configure-pages@v5
-      with:
-        enablement: true
+      - name: Configure GH pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
-    - name: Build pages
-      run: |
-        cp -r examples/ docs/examples/
-        cp CONTRIBUTING.md docs/
-        cp LICENSE docs/
+      - name: Build GH pages
+        run: |
+          cp -r examples/ docs/examples/
+          cp CONTRIBUTING.md docs/
+          cp LICENSE docs/
 
-        poetry run mkdocs build -s -d _site
+          poetry run mkdocs build -s -d _site
 
-    - uses: actions/upload-pages-artifact@v3
+      - name: Upload GH pages
+        uses: actions/upload-pages-artifact@v3
 
   deploy:
     needs: build
@@ -61,6 +67,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy GH pages
         id: deployment
         uses: actions/deploy-pages@v4

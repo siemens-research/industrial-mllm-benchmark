@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: Copyright 2024 Siemens AG
+# SPDX-License-Identifier: MIT
+
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Pypi Release
+
+on:
+  push:
+    tags:
+    - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    environment:
+      name: pypi.org
+      url: https://test.pypi.org/project/industrial-mllm-benchmark/
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Setup python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'poetry'
+
+      - name: Install project dependencies
+        run: poetry install
+
+      - name: Update version in pyproject.toml
+        run: poetry version ${{ github.ref_name }}
+
+      - name: Build package distributions
+        run: poetry build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/
