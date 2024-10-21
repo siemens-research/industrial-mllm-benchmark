@@ -5,7 +5,7 @@ site_name: Industrial MLLM Benchmark
 site_description: Industrial MLLM Benchmark
 site_author: Dieter Bogdoll <dieter.bogdoll@siemens.com>, Markus Geipel <markus.geipel@siemens.com>
 
-repo_url: https://github.com/siemens-research/industrial_mllm_benchmark.git
+repo_url: https://github.com/siemens-research/industrial-mllm-benchmark.git
 edit_uri: tree/main/docs
 
 copyright: "Copyright &copy; 2024 Siemens AG"
