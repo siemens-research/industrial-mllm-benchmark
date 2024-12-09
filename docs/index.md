@@ -4,6 +4,8 @@
 -->
 # Industrial Multimodal LLM Benchmark
 
+This code implements the ideas presented in the publication [Towards a Benchmark of Multimodal Large Language Models for Industrial Engineering](https://ieeexplore.ieee.org/abstract/document/10711022).
+
 ## License
 
 This project is using the [MIT license](./LICENSE).
