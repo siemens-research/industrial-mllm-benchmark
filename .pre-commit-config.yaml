@@ -35,7 +35,7 @@ repos:
 
       - id: poetry-check-lock
         name: Poetry – Check `poetry.lock`
-        entry: poetry lock --check
+        entry: poetry check --lock
         language: system
         pass_filenames: false
         files: ^pyproject.toml|poetry.lock$
